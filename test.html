@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Todo List App</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-blue-100 to-purple-200 min-h-screen flex items-center justify-center">
+
+  <div class="bg-white w-96 p-6 rounded-2xl shadow-xl">
+    
+    <h1 class="text-2xl font-bold text-center mb-4">Todo List</h1>
+
+    <!-- Form -->
+    <form id="todoForm" class="flex gap-2 mb-4">
+      <input 
+        type="text" 
+        id="todoInput" 
+        placeholder="Enter a task..."
+        class="flex-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+        required
+      >
+      <button 
+        type="submit"
+        class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition"
+      >
+        Add
+      </button>
+    </form>
+
+    <!-- Todo List -->
+    <ul id="todoList" class="space-y-2"></ul>
+
+  </div>
+
+  <script>
+    const form = document.getElementById("todoForm");
+    const input = document.getElementById("todoInput");
+    const list = document.getElementById("todoList");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const task = input.value.trim();
+      if (task === "") return;
+
+      const li = document.createElement("li");
+      li.className = "flex justify-between items-center bg-gray-100 px-3 py-2 rounded-lg";
+
+      li.innerHTML = `
+        <span>${task}</span>
+        <button class="text-red-500 hover:text-red-700">Delete</button>
+      `;
+
+      // Delete functionality
+      li.querySelector("button").addEventListener("click", function() {
+        li.remove();
+      });
+
+      list.appendChild(li);
+      input.value = "";
+    });
+  </script>
+
+</body>
+</html>
